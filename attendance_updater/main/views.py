@@ -13,3 +13,7 @@ def dateselection():
 @main.route('/markattendance')
 def mark():
 	return render_template('mark.html')
+	
+@main.route('/addnew')
+def addnew():
+	return render_template('addnew.html')
