@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Flasky - Mark Attendance{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Mark Attendance</h1>
+    <br>
+    <br>
+<div class="row">
+  <div class="col-xs-6 col-md-2"><h4><strong>Status</strong></h4></div>
+  <div class="col-xs-6 col-md-3"><h4><strong>Name</strong></h4></div>
+  <div class="col-xs-6 col-md-2"><h4><strong>Remarks</strong></h4></div>
+</div>
+<br>
+<div class="row">
+<div class="col-xs-6 col-md-2" >
+  <!--if student is present-->
+<div class="btn-group">
+    <button type="button" class="btn btn-success">Present</button>
+    <button type="button" class="btn btn-default">Absent</button>
+</div>
+<!--else-->
+<div class="btn-group">
+  <button type="button" class="btn btn-default">Present</button>
+  <button type="button" class="btn btn-danger">Absent</button>
+</div>
+<!--endif-->
+</div>
+
+  <div class="col-xs-6 col-md-3">Dewi Tan Jia Hui</div>
+  <!-- if Bad Weather-->
+  <div class="col-xs-6 col-md-2">Bad Weather</div>
+  <!-- else if PH -->
+  <div class="col-xs-6 col-md-2">Public Holiday</div>
+  <!-- else -->
+  <div class="col-xs-6 col-md-2"></div>
+  <!-- endif-->
+</div>
+<br>
+<h3>Set all as:</h3>
+<button type="button" class="btn btn-primary">Bad Weather</button>
+<button type="button" class="btn btn-primary">Public Holiday</button>
+<br>
+<br>
+<br>
+<br>
+<ul class="pager">
+  <li class="previous"><a href="{{ url_for('main.dateselection') }}">Previous</a></li>
+  <li class="next"><a href="{{ url_for('main.mark') }}">Next</a></li>
+</ul>
+{% endblock %}

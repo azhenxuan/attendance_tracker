@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Flasky - Add New Student{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Add New Student</h1>
+</div>
+
+<!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
+<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> 
+
+<!-- Inline CSS based on choices in "Settings" tab -->
+<style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}</style>
+
+<!-- HTML Form (wrapped in a .bootstrap-iso div) -->
+<div class="bootstrap-iso">
+ <div class="container-fluid">
+  <div class="row">
+   <div class="col-md-6 col-sm-6 col-xs-12">
+    <form class="form-horizontal" method="post">
+     <div class="form-group ">
+      <label class="control-label col-sm-2 requiredField" for="name">
+       Name
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      <div class="col-sm-10">
+       <input class="form-control" id="name" name="name" type="text"/>
+      </div>
+     </div>
+     <div class="form-group ">
+      <label class="control-label col-sm-2" for="nric">
+       NRIC
+      </label>
+      <div class="col-sm-10">
+       <input class="form-control" id="nric" name="nric" placeholder="S95XXXXXJ" type="text"/>
+      </div>
+     </div>
+     <div class="form-group ">
+      <label class="control-label col-sm-2" for="number">
+       Age
+      </label>
+      <div class="col-sm-10">
+       <input class="form-control" id="number" name="number" placeholder="Select Age" type="text"/>
+      </div>
+     </div>
+     <div class="form-group ">
+      <label class="control-label col-sm-2" for="sex">
+       Sex
+      </label>
+      <div class="col-sm-10">
+       <select class="select form-control" id="sex" name="sex">
+        <option value="Male">
+         Male
+        </option>
+        <option value="Female">
+         Female
+        </option>
+       </select>
+      </div>
+     </div>
+     <div class="form-group ">
+      <label class="control-label col-sm-2 requiredField" for="date_join">
+       Date Joined
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      <div class="col-sm-10">
+       <input class="form-control" id="date_join" name="date_join" placeholder="DD/MM/YYYY" type="text"/>
+      </div>
+     </div>
+     <div class="form-group ">
+      <label class="control-label col-sm-2 requiredField" for="select">
+       Status
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      <div class="col-sm-10">
+       <select class="select form-control" id="select" name="select">
+        <option value="Beginner">
+         Beginner
+        </option>
+        <option value="Intermediate">
+         Intermediate
+        </option>
+       </select>
+      </div>
+     </div>
+     <div class="form-group ">
+      <label class="control-label col-sm-2" for="highest_test">
+       Highest Test
+      </label>
+      <div class="col-sm-10">
+       <input class="form-control" id="highest_test" name="highest_test" type="text"/>
+      </div>
+     </div>
+     <div class="form-group ">
+      <label class="control-label col-sm-2 requiredField" for="premium">
+       Premium
+       <span class="asteriskField">
+        *
+       </span>
+      </label>
+      <div class="col-sm-10">
+       <select class="select form-control" id="premium" name="premium">
+        <option value="Premium">
+         Premium
+        </option>
+        <option value="Non-Premium">
+         Non-Premium
+        </option>
+       </select>
+      </div>
+     </div>
+     <div class="form-group ">
+      <label class="control-label col-sm-2" for="referred_by">
+       Referred by
+      </label>
+      <div class="col-sm-10">
+       <input class="form-control" id="referred_by" name="referred_by" type="text"/>
+      </div>
+     </div>
+     <div class="form-group ">
+      <label class="control-label col-sm-2" for="remarks">
+       Remarks
+      </label>
+      <div class="col-sm-10">
+       <input class="form-control" id="remarks" name="remarks" type="text"/>
+      </div>
+     </div>
+     <div class="form-group">
+      <div class="col-sm-10 col-sm-offset-2">
+       <button class="btn btn-primary " name="submit" type="submit">
+        Submit
+       </button>
+      </div>
+     </div>
+    </form>
+   </div>
+  </div>
+ </div>
+</div>
+
+
+<!-- Extra JavaScript/CSS added manually in "Settings" tab -->
+<!-- Include jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<!-- Include Date Range Picker -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+<script>
+	$(document).ready(function(){
+		var date_input=$('input[name="date"]'); //our date input has the name "date"
+		var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+		date_input.datepicker({
+			format: 'mm/dd/yyyy',
+			container: container,
+			todayHighlight: true,
+			autoclose: true,
+		})
+	})
+</script>
+
+
+{% endblock %}
