@@ -2,23 +2,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from . import db, login_manager
 
-
-class Role(db.Model):
-    __tablename__ = 'roles'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), unique=True)
-    users = db.relationship('User', backref='role', lazy='dynamic')
-
-    def __repr__(self):
-        return '<Role %r>' % self.name
-
-
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
-    email = db.Column(db.String(40), primary_key=True, index=True)
+    email = db.Column(db.String(40), primary_key=True)
     username = db.Column(db.String(20), unique=True, index=True)
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     password_hash = db.Column(db.String(50))
+    admin = db.Column(db.Boolean)
 
     @property
     def password(self):
@@ -53,8 +42,18 @@ class Student(db.Model):
     __tablename__ = 'students'
     nric = db.Column(db.String(10), primary_key = True)
     name = db.Column(db.String(30), index = True)
+    age = db.Column(db.Integer)
+    sex = db.Column(db.String(1))
+    date_join = db.Column(db.Date)
+    last_payment = db.Column(db.Date)
     premium = db.Column(db.Boolean)
     extra_classes = db.Column(db.Integer)
+    status = db.Column(db.Boolean)
+    highest_test = db.Column(db.Date)
+    date_intermediate = db.Column(db.Date)
+    date_premium = db.Column(db.Date)
+    referred_by = db.Column(db.String(50))
+    remarks = db.Column(db.String(80))
     attendance_id = db.Column(db.Integer, db.ForeignKey('attendance.id'))
 
 @login_manager.user_loader

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import os
 from attendance_updater import create_app, db
-from attendance_updater.models import User, Role
+from attendance_updater.models import User, Attendance, Class, Student
 from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
 
