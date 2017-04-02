@@ -4,8 +4,9 @@ from . import db, login_manager
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
-    email = db.Column(db.String(40), primary_key=True)
-    username = db.Column(db.String(20), unique=True, index=True)
+    id = db.Column(db.Integer, primary_key = True)
+    email = db.Column(db.String(40), unique=True, nullable = False)
+    username = db.Column(db.String(20), unique=True, nullable = False, index=True)
     password_hash = db.Column(db.String(50))
     admin = db.Column(db.Boolean)
 
@@ -27,20 +28,20 @@ class Attendance(db.Model):
     __tablename__ = 'attendance'
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.Date)
-    db.relationship('Class', backref = 'attendance')
-    db.relationship('Student', backref = 'students')
+    student_nric = db.Column(db.Integer, db.ForeignKey('students.nric'))
+    class_id = db.Column(db.Integer, db.ForeignKey('classes.id'))
     
 class Class(db.Model):
     __tablename__ = 'classes'
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.Integer, primary_key=True)
     day = db.Column(db.String(3), index=True)
     time = db.Column(db.Time)
-    attendance_id = db.Column(db.Integer, db.ForeignKey('attendance.id'))
+    db.relationship('Attendance', backref = 'classes')
+    db.relationship('Student', backref = 'classes')
     
-
 class Student(db.Model):
     __tablename__ = 'students'
-    nric = db.Column(db.String(10), primary_key = True)
+    nric = db.Column(db.String(10), primary_key = True, index = True)
     name = db.Column(db.String(30), index = True)
     age = db.Column(db.Integer)
     sex = db.Column(db.String(1))
@@ -49,12 +50,13 @@ class Student(db.Model):
     premium = db.Column(db.Boolean)
     extra_classes = db.Column(db.Integer)
     status = db.Column(db.Boolean)
-    highest_test = db.Column(db.Date)
+    highest_test = db.Column(db.String)
     date_intermediate = db.Column(db.Date)
     date_premium = db.Column(db.Date)
     referred_by = db.Column(db.String(50))
     remarks = db.Column(db.String(80))
-    attendance_id = db.Column(db.Integer, db.ForeignKey('attendance.id'))
+    class_id = db.Column(db.Integer, db.ForeignKey('classes.id'))
+    db.relationship('Attendance', backref = 'students')
 
 @login_manager.user_loader
 def load_user(user_id):
