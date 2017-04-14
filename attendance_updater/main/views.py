@@ -3,11 +3,15 @@ from flask_login import current_user, login_required
 from . import main
 from .. import db
 from .forms import SubmitForm, ClassSelectForm, AttendanceForm
-from ..models import Student, Class, Attendance
+from ..models import Student, Class, Attendance, User
 import datetime, calendar
 
 @main.route('/')
 def index():
+    admin = User(email='swimstarter@gmail.com', username='tham_xs', password_hash='swimmingcoach')
+    if User.query.first() is None:
+        db.session.add(admin)
+        db.session.commit()
     return render_template('index.html')
 
 @main.route('/classselection', methods=['GET', 'POST'])
