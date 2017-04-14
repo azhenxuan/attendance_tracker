@@ -57,15 +57,15 @@ def mark(classID):
     if current_user.is_authenticated:
         students = Student.query.filter(Student.class_id == classID).all()
         form = AttendanceForm()
-        form.students.choices = [(student.nric, student.name) for student in students]
+        form.students.choices = [(student.id, student.name) for student in students]
         week_class = retrieveAttendanceCurrentWeek(classID)
-        form.students.data = [attendance.student_nric for attendance in week_class]
+        form.students.data = [attendance.student_id for attendance in week_class]
         if form.validate_on_submit():
             today_date = datetime.date.today()
-            for student_nric in form.students.data:
+            for student_id in form.students.data:
                 attendance = Attendance(date = today_date,
                                         class_id = classID,
-                                        student_nric = student_nric)
+                                        student_id = student_id)
                 db.session.add(attendance)
             flash("The students' attendance has been taken")
         return render_template('mark.html', form = form)
@@ -91,8 +91,7 @@ def addnew():
                 db.session.add(newclass)
             class_id = Class.query.filter((Class.time == form.time.data)
                                     & (Class.day == form.day.data)).first().id
-            student = Student(nric=form.nric.data,
-                            name = form.name.data,
+            student = Student(name = form.name.data,
                             age = form.age.data,
                             sex = form.sex.data,
                             date_join = form.date_join.data,

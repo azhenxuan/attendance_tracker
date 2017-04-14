@@ -8,9 +8,6 @@ from ..models import Student
 
 class SubmitForm(FlaskForm):
     name = StringField("Student's name", validators=[Required()])
-    nric = StringField(validators=[Required(),Length(min=9, max=9),
-                       Unique(Student, Student.nric, message=
-                              'user')])
     age = StringField(validators=[Required(), Length(min=1, max=2)])
     sex = RadioField(choices = [('M','Male'),('F','Female')])
     date_join = DateField('Start Date (DD/MM/YYYY)', format='%d/%m/%Y')
