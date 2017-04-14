@@ -8,10 +8,6 @@ import datetime, calendar
 
 @main.route('/')
 def index():
-    admin = User(email='swimstarter@gmail.com', username='tham_xs', password_hash='swimmingcoach')
-    if User.query.first() is None:
-        db.session.add(admin)
-        db.session.commit()
     return render_template('index.html')
 
 @main.route('/classselection', methods=['GET', 'POST'])
