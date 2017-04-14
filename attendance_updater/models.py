@@ -7,7 +7,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key = True)
     email = db.Column(db.String(40), unique=True, nullable = False)
     username = db.Column(db.String(20), nullable = False, index=True)
-    password_hash = db.Column(db.String(50), nullable = False)
+    password_hash = db.Column(db.String(100), nullable = False)
 
     @property
     def password(self):
@@ -25,7 +25,7 @@ class User(UserMixin, db.Model):
 
 class Attendance(db.Model):
     __tablename__ = 'attendance'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, )
     date = db.Column(db.Date)
     student_nric = db.Column(db.String(9), db.ForeignKey('students.nric'))
     class_id = db.Column(db.Integer, db.ForeignKey('classes.id'))
